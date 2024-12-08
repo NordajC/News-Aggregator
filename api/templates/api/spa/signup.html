@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body>
+    {% block content %}
+    <h2> Sign Up</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small style="color: rgb(179, 179, 179)">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <button type="submit">Sign Up</button>
+    </form>
+    {% endblock %}
+</body>
+<style>
+    
+
+html{
+    color: #FFF;
+    padding: 20px;
+  border: 1px solid #d3d3d3;
+  border-radius: 5px;
+  background-color: #1e2732;
+}
+</style>
+</html>

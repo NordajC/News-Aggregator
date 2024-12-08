@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Articles</title>
+</head>
+<body>
+    <h1>Favorite Articles by Category</h1>
+    {% for article in articles %}
+        <div class="category">
+            <h2>{{ article.category.name }}</h2>
+            <ul>
+                <li>
+                    <h3>{{ article.title }}</h3>
+                    <p><a href="{{ article.newsapi_id }}">Read more</a></p>
+
+                    <div class="comments" id="comments-article-{{ article.id }}">
+                        <h4>Comments:</h4>
+                        
+                        <div class="comment-list">
+                        </div>
+
+                        <form action="{% url 'post_comment' article.id %}" method="post">
+                            {% csrf_token %}
+                            <textarea name="content" placeholder="Leave a comment"></textarea>
+                            <input type="hidden" name="parent_id" value=""> 
+                            <input type="submit" value="Post Comment">
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    {% empty %}
+        <p>No favorite articles found.</p>
+    {% endfor %}
+
+    
+</body>
+</html>
